@@ -1,0 +1,19 @@
+
+dependencies {
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    implementation project(':jappcheck-core')
+    compileOnly 'org.springframework.boot:spring-boot-starter-security:3.1.5'
+    compileOnly 'org.springframework.boot:spring-boot-starter-web:3.1.5'
+    testImplementation 'org.springframework.boot:spring-boot-starter-security:3.1.5'
+    testImplementation 'org.mockito:mockito-core:5.7.0'
+}
+
+ext {
+    description = 'test'
+    url = 'http'
+    scm = 'test'
+}
+
+test {
+    useJUnitPlatform()
+}
