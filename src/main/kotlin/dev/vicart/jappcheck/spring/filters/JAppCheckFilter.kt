@@ -12,17 +12,28 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.GenericFilterBean
 
+/**
+ * Spring filter to check the X-Firebase-AppCheck header for the App Check token
+ * @author Clément Vicart
+ * @since 1.0
+ */
 @Component
 class JAppCheckFilter : GenericFilterBean() {
 
     @Value("\${jappcheck.projectId}")
     private lateinit var projectId: String
 
+    /**
+     * Initializes the JAppCheck library
+     */
     @PostConstruct
     fun setup() {
         JAppCheck.initialize(projectId)
     }
 
+    /**
+     * Looks for AppCheck token in the headers and tries to validate it
+     */
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         if(!(request is HttpServletRequest && response is HttpServletResponse)) {
             chain.doFilter(request, response)
